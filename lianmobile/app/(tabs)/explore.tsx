@@ -10,13 +10,9 @@ import { IconSymbol } from '@/components/ui/IconSymbol';
 
 const BETTABLE_ITEMS = [
   { id: 'item1', name: 'Quem ganhará a rinha?', options: ['Degolador de farmaceutico', 'Empate', 'Destruidor de maçanetas'] },
-  { id: 'item2', name: 'Numero de patas quebradas', options: ['apenas uma', 'duas', 'Exatamente 3'] },
-  { id: 'item3', name: 'Primeiro Marcador', options: ['Jogador X', 'Jogador Y', 'Nenhum'] },
-  { id: 'item4', name: 'Placar Exato', options: ['1x0', '0x0', '0x1', '2x1', '1x2', '3x0', '0x3'] },
-  { id: 'item5', name: 'Total de Cartões Amarelos', options: ['Menos de 3', '3-5', 'Mais de 5'] },
-  { id: 'item6', name: 'Escanteios na Partida', options: ['Menos de 9', '9-11', 'Mais de 11'] },
-  { id: 'item7', name: 'Qual time marca primeiro?', options: ['Time A', 'Time B', 'Nenhum Gol'] },
-  // Adicione mais itens apostáveis aqui
+  { id: 'item2', name: 'Numero de patas quebradas', options: ['apenas uma', 'duas', 'Exatamente 3','4 patas'] },
+  { id: 'item3', name: 'Primeiro time Marcador', options: ['Galudos', 'Galados', 'KFC'] },
+
 ];
 
 export default function BettingScreen() {
@@ -45,6 +41,11 @@ export default function BettingScreen() {
     }
     console.log('Apostas:', selectedOptions, 'Valor da Aposta:', betAmount);
     // Aqui você implementaria a lógica para registrar a aposta
+
+    // Resetar os campos de aposta
+    setSelectedOptions({});
+    setBetAmount('');
+    alert('Aposta finalizada com sucesso!'); // Feedback para o usuário
   };
 
   return (
@@ -73,7 +74,7 @@ export default function BettingScreen() {
                 selectedOptions[item.id] === option && styles.selectedBetOption,
               ]}
               onPress={() => handleOptionSelect(item.id, option)}>
-              <ThemedText style={selectedOptions[item.id] === option && styles.selectedBetOptionText}>
+              <ThemedText style={[styles.betOptionText, selectedOptions[item.id] === option && styles.selectedBetOptionText]}>
                 {option}
               </ThemedText>
             </TouchableOpacity>
@@ -84,11 +85,12 @@ export default function BettingScreen() {
       <View style={styles.betAmountContainer}>
         <ThemedText>Valor da Aposta:</ThemedText>
         <TextInput
-          style={styles.betAmountInput}
+          style={[styles.betAmountInput, { color: '#fff' }]}
           keyboardType="numeric"
           placeholder="R$ 0,00"
           value={betAmount}
           onChangeText={handleBetAmountChange}
+          placeholderTextColor="#ccc"
         />
       </View>
 
@@ -123,6 +125,9 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginBottom: 8,
     marginHorizontal: 16,
+  },
+  betOptionText: {
+    color: '#000',
   },
   selectedBetOption: {
     backgroundColor: '#007bff',
