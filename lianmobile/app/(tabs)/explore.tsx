@@ -50,19 +50,17 @@ export default function BettingScreen() {
 
   return (
     <ParallaxScrollView
-      headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
+    headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
       headerImage={
-        <IconSymbol
-          size={310}
-          color="#808080"
-          name="chevron.left.forwardslash.chevron.right"
-          style={styles.headerImage}
+        <Image
+          source={require('@/assets/images/logogalo.jpg')}
+          style={styles.reactLogo}
         />
       }>
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Apostas</ThemedText>
       </ThemedView>
-      <ThemedText style={styles.description}>Selecione suas apostas abaixo:</ThemedText>
+      <ThemedText style={styles.description}>Selecione suas apostas para nossa proxima rinha dia 11/09/2001 </ThemedText>
 
       {BETTABLE_ITEMS.map(item => (
         <Collapsible key={item.id} title={item.name}>
@@ -71,10 +69,9 @@ export default function BettingScreen() {
               key={option}
               style={[
                 styles.betOptionButton,
-                selectedOptions[item.id] === option && styles.selectedBetOption,
               ]}
               onPress={() => handleOptionSelect(item.id, option)}>
-              <ThemedText style={[styles.betOptionText, selectedOptions[item.id] === option && styles.selectedBetOptionText]}>
+              <ThemedText style={[styles.betOptionText]}>
                 {option}
               </ThemedText>
             </TouchableOpacity>
@@ -117,6 +114,13 @@ const styles = StyleSheet.create({
   description: {
     paddingHorizontal: 16,
     marginBottom: 16,
+  },
+  reactLogo: {
+    height: 250,
+    width: 420,
+    bottom: 0,
+    left: 0,
+  position: 'absolute',
   },
   betOptionButton: {
     backgroundColor: '#f0f0f0',
