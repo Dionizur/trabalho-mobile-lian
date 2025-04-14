@@ -20,10 +20,11 @@ export default function BettingScreen() {
   const [betAmount, setBetAmount] = useState('');
 
   const handleOptionSelect = (itemId: string, option: string) => {
-    setSelectedOptions(prevState => ({
-      ...prevState,
-      [itemId]: option,
-    }));
+    setSelectedOptions(prevState => {
+      const newState = { ...prevState };
+      newState[itemId] = option;
+      return newState;
+    });
   };
 
   const handleBetAmountChange = (text: string) => {
@@ -50,7 +51,7 @@ export default function BettingScreen() {
 
   return (
     <ParallaxScrollView
-    headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
+      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
       headerImage={
         <Image
           source={require('@/assets/images/logogalo.jpg')}
@@ -69,9 +70,13 @@ export default function BettingScreen() {
               key={option}
               style={[
                 styles.betOptionButton,
+                selectedOptions[item.id] === option && styles.selectedBetOption,
               ]}
               onPress={() => handleOptionSelect(item.id, option)}>
-              <ThemedText style={[styles.betOptionText]}>
+              <ThemedText style={[
+                styles.betOptionText,
+                selectedOptions[item.id] === option && styles.selectedBetOptionText,
+              ]}>
                 {option}
               </ThemedText>
             </TouchableOpacity>
@@ -120,7 +125,7 @@ const styles = StyleSheet.create({
     width: 420,
     bottom: 0,
     left: 0,
-  position: 'absolute',
+    position: 'absolute',
   },
   betOptionButton: {
     backgroundColor: '#f0f0f0',
@@ -134,10 +139,10 @@ const styles = StyleSheet.create({
     color: '#000',
   },
   selectedBetOption: {
-    backgroundColor: '#007bff',
+    backgroundColor: '#007bff', // Cor azul para a opção selecionada
   },
   selectedBetOptionText: {
-    color: '#fff',
+    color: '#fff', // Cor branca para o texto da opção selecionada
   },
   betAmountContainer: {
     flexDirection: 'row',
